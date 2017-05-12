@@ -1,61 +1,74 @@
-var connection = require("./connection.js");
+// Here is the O.R.M. where you write functions that takes inputs and conditions
+// and turns them into database commands like SQL.
+
+var connection = require("./connection");
+
+function printQuestionMarks(num) {
+  var arr = [];
+
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
+  }
+
+  return arr.toString();
+}
+
+function objToSql(ob) {
+  // column1=value, column2=value2,...
+  var arr = [];
+
+  for (var key in ob) {
+    if (ob[key]) {
+      arr.push(key + "=" + ob[key]);
+    }
+  }
+
+  return arr.toString();
+}
 
 var orm = {
-
-  selectAll: function(cb) {
-    var queryString = "SELECT * FROM burgers";
-    console.log(queryString);
+  all: function(tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + ";";
     connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      console.log(result);
+      if (err) throw err;
       cb(result);
     });
   },
+  // vals is an array of values that we want to save to cols
+  // cols are the columns we want to insert the values into
+  create: function(table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
 
-  insertOne: function(val, cb) {
-    var queryString = "INSERT INTO burgers (burger_name, devoured, date) VALUES (?, FALSE, CURRENT_TIMESTAMP)";
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
     console.log(queryString);
 
-    // FIRST QUERY TO INSERT NEW DATA TO THE DB
-    connection.query(queryString, [val], function(err, result) {
-      if (err) {
-        throw err;
-      }
-      console.log(result);
-    });
-    //SECOND QUERY TO SELECT ALL DATA AND INITIATE THE CALLBACK
-    //QUESTION: DOES THIS NEED TO ADDRESS THE ASYNC ISSUE?
-    connection.query("SELECT * FROM burgers", function(err, result) {
-      if (err) {
-        throw err;
-      }
+    connection.query(queryString, vals, function(err, result) {
+      if (err) throw err;
       cb(result);
     });
   },
+  // objColVals would be the columns and values that you want to update
+  // an example of objColVals would be {name: panther, sleepy: true}
+  update: function(table, objColVals, condition, cb) {
+    var queryString = "UPDATE " + table;
 
-  updateOne: function(condition, cb) {
-    var queryString = "UPDATE burgers SET devoured = 1 WHERE " + condition;
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
+
     console.log(queryString);
-
-    // FIRST QUERY TO UPDATE THE ROW WITH UPDATED BOOLEAN
     connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-    });
-    //SECOND QUERY TO SELECT ALL DATA AND INITIATE THE CALLBACK
-    //QUESTION: DOES THIS NEED TO ADDRESS THE ASYNC ISSUE?
-    connection.query("SELECT * FROM burgers", function(err, result) {
-      if (err) {
-        throw err;
-      }
+      if (err) throw err;
       cb(result);
     });
   }
-
 };
 
-// Export the connection query functions for the burger.js (controller) - object/callback purposes?
 module.exports = orm;
