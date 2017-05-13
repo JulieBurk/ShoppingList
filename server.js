@@ -6,6 +6,9 @@ var app = express();
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(__dirname + "/public"));
 
+// require models for syncing
+var db = require ("./models")
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: false
@@ -27,4 +30,11 @@ app.use("/create", routes);
 
 // listen on port 3000
 var port = process.env.PORT || 3000;
-app.listen(port);
+
+
+// sync with database then listen
+db.sequelize.sync().then(function(){
+	app.listen(port);
+})
+
+

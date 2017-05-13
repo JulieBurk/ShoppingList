@@ -1,20 +1,11 @@
-var orm = require("../config/orm");
+"use strict";
 
-var burger = {
-  all: function(cb) {
-    orm.all("burgers", function(res) {
-      cb(res);
+module.exports = function(sequelize, DataTypes){
+  var Burgers = sequelize.define("burgers", {
+    burger_name: DataTypes.STRING,
+    devoured: DataTypes.BOOLEAN
     });
-  },
-  create: function(name, cb) {
-    orm.create("burgers", ["burger_name", "devoured"], [name, false], cb);
-  },
-  update: function(id, cb) {
-    var condition = "id=" + id;
-    orm.update("burgers", {
-      devoured: false
-    }, condition, cb);
-  }
-};
 
-module.exports = burger;
+  return Burgers;
+}
+// module.exports = Burgers;
