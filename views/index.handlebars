@@ -1,22 +1,22 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 text-center" id="top-bar">
-			<img src="/assets/images/burger.png" alt="burger" />
-			<h1> Eat-Da-Burger! </h1>
+			<img src="/assets/images/Shopping-Cart-4.png" alt="cart" />
+			<h1> ShoppingList! </h1>
 		</div>
 		<div class="col-xs-6 text-center" class="task">
 			<div class="row">
-			  {{#each burgers}}
-			  	{{#unless this.devoured}}
+			  {{#each listPage}}
+			  	{{#unless this.gotIt}}
 				<div class="col-xs-9 text-center">
-					<pre>{{this.id}}. {{this.burger_name}}
+					<pre>{{this.id}}. {{this.item_name}}
 					</pre>
 				  		<!-- {{this.Date}} -->
 				</div>
 				<div class="col-xs-3 text-center">
-					<form method="POST" action="/burgers/update?_method=PUT" class="button-size">
-						<input input type="hidden" type="text" name="burger_id" value={{this.id}}><br>
-						<button type="submit" class="btn btn-default">Devour it!</button>
+					<form method="POST" action="/listPage/update?_method=PUT" class="button-size">
+						<input type="hidden" name="id" value={{this.id}}><br>
+						<button type="submit" class="btn btn-default">Got it!</button>
 					</form>
 				</div>
 				{{/unless}}
@@ -24,9 +24,9 @@
 			</div>
 		</div>
 		<div class="col-xs-6 text-center" class="task">
-			  {{#each burgers}}
-			  	{{#if this.devoured}}
-			  		<input class="form-control" type="text" placeholder="{{this.id}} . {{this.burger_name}}" readonly>
+			  {{#each listPage}}
+			  	{{#if this.gotIt}}
+			  		<input class="form-control" type="text" placeholder="{{this.id}} . {{this.item_name}}" readonly>
 				{{/if}}
 			  {{/each}}
 		</div>
@@ -36,11 +36,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 text-center enter_section">
-			<form action="/burgers/create" method="POST">
-				<input type="text" class="form-control" name="burger_name" value="" id="enter_text">
+			<form action="/listPage/create" method="POST">
+				<input type="text" class="form-control" name="item_name" value="" id="enter_text">
 				<button type="submit" class="btn btn-primary" id="text-enter-button">Submit</button>
 			</form>
-			<p>Enter a burger you want to eat Click the "Submit" button.</p>
+			<p>Enter an item you want to purchase and Click the "Submit" button.</p>
 		</div>
 	</div>
 </div>

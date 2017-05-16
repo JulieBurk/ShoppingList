@@ -22,19 +22,24 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 
-var routes = require("./controllers/burgers_controller");
+var routes = require("./controllers/shoppingList_controller");
 
-app.use("/", routes);
-app.use("/update", routes);
-app.use("/create", routes);
+// get route -> index
+app.get("/", function(req, res){
+	res.redirect("/listPage");
+});
+
+app.use("/listPage", routes);
+// app.use("/update", routes);
+// app.use("/create", routes);
 
 // listen on port 3000
 var port = process.env.PORT || 3000;
 
 
 // sync with database then listen
-db.sequelize.sync().then(function(){
+db.sequelize.sync({ force:true }).then(function(){
 	app.listen(port);
 })
 
-
+// 

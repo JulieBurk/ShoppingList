@@ -1,3 +1,4 @@
-INSERT INTO burgers (burger_name, devoured) VALUES ('Cheese Burger', FALSE);
-INSERT INTO burgers (burger_name, devoured) VALUES ('Hamburger', FALSE);
-INSERT INTO burgers (burger_name, devoured) VALUES ('Pizza Burger', FALSE);
+-- INSERT into table name (column name, column name) VALUES ("cell data", "cell data");
+INSERT INTO shoppingListTable (item_name, gotIt) VALUES ('Igloo Glue', FALSE);
+INSERT INTO shoppingListTable (item_name, gotIt) VALUES ('Knot Rope', FALSE);
+INSERT INTO shoppingListTable (item_name, gotIt) VALUES ('Broom', FALSE);
