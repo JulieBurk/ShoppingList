@@ -36,8 +36,8 @@ router.post("/create", function(req, res) {
 
 // put route -> back to index
 router.put("/update", function(req, res) {
-  db.shoppingListTable.update({devoured:true},
-    {where:{id: req.body.burger_id}}).then(function(result) {
+  db.shoppingListTable.update({gotIt:true},
+    {where:{id: req.body.id}}).then(function(result) {
     // wrapper for orm.js that using MySQL update callback will return a log to console,
     // render back to index with handle
     console.log(result);

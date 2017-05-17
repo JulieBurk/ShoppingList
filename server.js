@@ -7,7 +7,7 @@ var app = express();
 app.use(express.static(__dirname + "/public"));
 
 // require models for syncing
-var db = require ("./models")
+var db = require("./models")
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({

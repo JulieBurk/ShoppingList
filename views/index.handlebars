@@ -6,16 +6,17 @@
 		</div>
 		<div class="col-xs-6 text-center" class="task">
 			<div class="row">
-			  {{#each listPage}}
+			  {{#each shoppingListTable}}
 			  	{{#unless this.gotIt}}
 				<div class="col-xs-9 text-center">
 					<pre>{{this.id}}. {{this.item_name}}
 					</pre>
-				  		<!-- {{this.Date}} -->
+				  		
 				</div>
 				<div class="col-xs-3 text-center">
 					<form method="POST" action="/listPage/update?_method=PUT" class="button-size">
-						<input type="hidden" name="id" value={{this.id}}><br>
+						<input type="hidden" name="id" value={{this.id}}>
+						<br>
 						<button type="submit" class="btn btn-default">Got it!</button>
 					</form>
 				</div>
@@ -24,7 +25,7 @@
 			</div>
 		</div>
 		<div class="col-xs-6 text-center" class="task">
-			  {{#each listPage}}
+			  {{#each shoppingListTable}}
 			  	{{#if this.gotIt}}
 			  		<input class="form-control" type="text" placeholder="{{this.id}} . {{this.item_name}}" readonly>
 				{{/if}}
