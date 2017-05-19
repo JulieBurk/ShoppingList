@@ -43,3 +43,16 @@ db.sequelize.sync({ force:true }).then(function(){
 })
 
 // 
+var juliesFunction = function(name){
+	if (name == "julie"){
+		return true
+	}
+	else {
+		return false
+	}
+}
+
+module.exports = juliesFunction;
+
+
+
