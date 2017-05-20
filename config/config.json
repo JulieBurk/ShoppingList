@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Iheartjadebear14",
+    "password": "",
     "database": "shoppingList_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

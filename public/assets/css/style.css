@@ -2,7 +2,11 @@
 body {
   width: 100%;
   height: 100%;
-  background-image: url(/assets/images/shopping2.jpg);
+  background-color: #ef6c00;
+}
+.topnav {
+    font-size: 25px;
+
 }
 #top-bar {
   margin-top: 28px;
@@ -81,9 +85,20 @@ h1{
 h1.animated.bounce{
   color: red;
 }
+#create{
+  color: white;
+
+}
 
 footer{
   width: auto;
   height: auto;
+  color: white;
+}
+.something{
+  width: 100%;
+  height: 500px;
+}
+.BottomPage{
   color: white;
 }
