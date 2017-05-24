@@ -1,9 +1,9 @@
-body {
-  width: 99%;
-  height: 900px;
-  background-color: white;
-}
 
+body {
+  width: 100%;
+  height: 100%;
+  background-image: url(/assets/images/shopping2.jpg);
+}
 #top-bar {
   margin-top: 28px;
 }
@@ -64,5 +64,26 @@ body {
 }
 
 h1 {
-  color: blue;
+  color: black;
+}
+
+.jumbotron{
+  text-align: center;
+  margin: 100px;
+  opacity: 0.5;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+h1{
+  color: white;
+}
+
+h1.animated.bounce{
+  color: red;
+}
+
+footer{
+  width: auto;
+  height: auto;
+  color: white;
 }
