@@ -9,5 +9,6 @@ CREATE TABLE shoppingListTable (
 id int NOT NULL AUTO_INCREMENT,
 item_name varchar(255) NOT NULL,
 gotIt BOOL DEFAULT false,
+hash BLOB(1000000000) NOT NULL,
 PRIMARY KEY (id)
 );

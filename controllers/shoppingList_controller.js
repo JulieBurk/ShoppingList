@@ -3,26 +3,44 @@ var express = require("express");
 var router = express.Router();
 
 
-var db = require ("../models")
+var db = require ("../models");
 
-router.get("/", function(req, res){
-	db.shoppingListTable.findAll().then( function(data) {
+// get function to generate unique url for each session
+router.get("/", function (req, res) {
+  var randomHash = Math.floor(Math.random() * 10000000);
+  res.redirect("/" + randomHash);
+});
+
+// get function to retreive unique hash from sql
+router.get("/:hash/", function(req, res){
+  var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+
+	db.shoppingListTable.findAll({
+    where: {
+      hash: req.params.hash, // TODO: add column
+    }
+  }).then( function(data) {
 	// wrapping the array of returned items in an object so it can be reffered to in handlebars index file
-	var hbsObject = { shoppingListTable: data };
+	var hbsObject = {
+    shoppingListTable: data,
+    fullUrl: fullUrl,
+    hash: req.params.hash,
+  };
 	res.render("index", hbsObject);
 	});
 });
 
 // post route -> back to index
-router.post("/create", function(req, res) {
+router.post("/:hash/create", function(req, res) {
   console.log(req.body);
   // takes the request object using it as input for buger.addBurger
   db.shoppingListTable.create({
     item_name: req.body.item_name, 
     gotIt: req.body.gotIt,
+    hash: req.params.hash,
   }).then(function(result) {
      // console.log(result);
-    res.redirect("/listPage");
+    res.redirect("/"  +  req.params.hash);
   });
 });
 
@@ -30,12 +48,10 @@ router.post("/create", function(req, res) {
 router.put("/update", function(req, res) {
   db.shoppingListTable.update({gotIt:true},
     {where:{id: req.body.id}}).then(function(result) {
-    // wrapper for orm.js that using MySQL update callback will return a log to console,
-    // render back to index with handle
+    // render back to main with handle
     console.log(result);
-    res.redirect("/listPage");
+    res.redirect("/"  +  req.params.hash);
   });
 });
 
 module.exports = router;
-// db.burgers.update({devoured:true},{where:{id: req.body.burger_id}}).then(function(result) { /* ... */ });

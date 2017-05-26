@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 
 var app = express();
+
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(__dirname + "/public"));
 
@@ -13,7 +14,7 @@ var db = require("./models")
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-// override with POST having ?_method=DELETE
+
 app.use(methodOverride("_method"));
 var exphbs = require("express-handlebars");
 
@@ -25,13 +26,13 @@ app.set("view engine", "handlebars");
 var routes = require("./controllers/shoppingList_controller");
 
 // get route -> index
+/*
 app.get("/", function(req, res){
 	res.redirect("/listPage");
 });
+*/
 
-app.use("/listPage", routes);
-// app.use("/update", routes);
-// app.use("/create", routes);
+app.use("/", routes);
 
 // listen on port 3000
 var port = process.env.PORT || 3000;
@@ -42,17 +43,7 @@ db.sequelize.sync({ force:true }).then(function(){
 	app.listen(port);
 })
 
-// 
-var juliesFunction = function(name){
-	if (name == "julie"){
-		return true
-	}
-	else {
-		return false
-	}
-}
 
-module.exports = juliesFunction;
 
 
 

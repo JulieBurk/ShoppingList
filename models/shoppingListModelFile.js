@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes){
     gotIt:{
     	type: DataTypes.BOOLEAN,
     	defaultValue: false
-    }
+    },
+    hash: DataTypes.STRING 
     
     });
 
